@@ -1,0 +1,14 @@
+<main class="main">
+    <article class="title">GRPC-Web Vs REST</article>
+    <article>
+        Time GRPC: {{ this.timeResponseGRPC }}
+    </article>
+    <article>Prom GRPC: {{ (this.totalGRPC / numberTryGRPC).toFixed(2)}}</article>
+    <article>
+        Time REST: {{ this.timeResponseREST }}
+    </article>
+    <article>Prom REST: {{ (this.totalREST / numberTryREST).toFixed(2)}}</article>
+    <article class="btn">
+        <button type="button" (click)="callServices()">Call Services</button>
+    </article>
+</main>

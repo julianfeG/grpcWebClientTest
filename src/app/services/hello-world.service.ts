@@ -7,20 +7,34 @@ import { HelloWorldServiceClient } from 'proto/generated/proto/hello_pb_service'
 })
 export class HelloWorldService {
   private client: HelloWorldServiceClient;
-  
+  responseTime: any;
   constructor() {
     this.client = new HelloWorldServiceClient(
       'http://localhost:8080');
   }
-  
-  hello(text: string): void {
+
+  // callbackGrpc(error:any, response: HelloResponse | null) {
+  //   const end = (new Date()).getTime();
+  //   console.timeEnd('GRPC');
+  //   this.responseTime = end - start;
+  //   // Your code to handle error & response.
+  //   console.log('HelloResponse: ' + response);
+  // }
+
+  hello(text: string) {
     const request = new HelloRequest();
     request.setText(text);
+    let responseTime = 0;
+    console.time('GRPC');
+    const start = (new Date()).getTime();
     this.client.hello(
-      request, (error, response: HelloResponse | null) => {
+      request, (_error, response: HelloResponse | null) => {
+        const end = (new Date()).getTime();
+        console.timeEnd('GRPC');
+        this.responseTime = end - start;
         // Your code to handle error & response.
-        console.log('Error: ' + error);
         console.log('HelloResponse: ' + response);
       });
+    return this.responseTime;
   }
 }
