@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  endpoint_server_grpc: 'http://54.236.254.24:8080',
+  endpoint_server_rest: 'http://localhost:3300',
+
 };
 
 /*

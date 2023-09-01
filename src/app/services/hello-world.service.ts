@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HelloRequest, HelloResponse } from 'proto/generated/proto/hello_pb';
 import { HelloWorldServiceClient } from 'proto/generated/proto/hello_pb_service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class HelloWorldService {
   responseTime: any;
   constructor() {
     this.client = new HelloWorldServiceClient(
-      'http://localhost:8080');
+      environment.endpoint_server_grpc);
   }
 
   // callbackGrpc(error:any, response: HelloResponse | null) {
@@ -34,6 +35,10 @@ export class HelloWorldService {
         this.responseTime = end - start;
         // Your code to handle error & response.
         console.log('HelloResponse: ' + response);
+        if (_error) {
+          console.log('error presented: ', _error);
+          this.responseTime = 0;
+        }
       });
     return this.responseTime;
   }
